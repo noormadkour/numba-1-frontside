@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Outlet, Route, Routes } from "react-router-dom";
+import { NavBar } from "./components/NavBar/NavBar";
+import { Ships } from "./components/Ships/Ships";
+import { Haulers } from "./components/Haulers/Haulers";
+import { Docks } from "./components/Docks/Docks";
+import { Home } from "./components/Home/Home";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1 className='text-blue-500'>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <>
+            <NavBar />
+            <Outlet />
+          </>
+        }
+      >
+        <Route index element={<Home />} />
+        <Route path="/ships" element={<Ships />} />
+        <Route path="/haulers" element={<Haulers />} />
+        <Route path="/docks" element={<Docks />} />
+        {/* all other views go here so NavBar remains on top */}
+      </Route>
+    </Routes>
+  );
 }
 
-export default App
+export default App;
